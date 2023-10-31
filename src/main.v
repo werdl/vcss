@@ -1,14 +1,25 @@
-import vcss { style, Style }
+import os
 
 fn main() {
-	[
-		style("height", "30px"),
-		style("width", "40px")
-	].push("div")
-	[
-		style("height", "3px"),
-		style("width", "4px")
-	].push("div#small")
+	
+	mut file:="
+	import vcss { style, Style }
+	fn main() {
 
-	global.write()
+	"
+
+    file+=os.read_file(os.args[1]) or { panic(err) }
+
+
+
+	file+="
+	global.write('${os.args[2]}')
+	}
+	"
+
+	os.write_file("temp.v", file)  or { println("Could not write to file") }
+
+	os.execute("v -enable-globals run temp.v")
+
+	os.rm("temp.v") or { panic(err) }
 }
