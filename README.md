@@ -9,20 +9,14 @@ v install werdl.vcss
 ```
 - `in.vcss`
 ```v
-import vcss { style, Style }
-
-fn main() {
-	[
-		style("height", "30px"),
-		style("width", "40px")
-	].push("div#big")
-	[
-		style("height", "3px"),
-		style("width", "4px")
-	].push("div#small")
-
-	global.write()
-}
+[
+    style("height", "30px"),
+    style("width", "40px")
+].push("div#big")
+[
+    style("height", "3px"),
+    style("width", "4px")
+].push("div#small")
 ```
 - `make compile`
 - `./vcss in.vcss out.css`
@@ -41,4 +35,10 @@ div#small {
 `vcss /path/to/input /path/to/output`
 
 ### `.vcss`
-- Contains valid V syntax, without the main function. Everything in it will be wrapped into a main function.
+- Contains valid V syntax, without the `main` function. Everything in it will be wrapped into a `main` function.
+## How it works
+- Reads the input `.vcss` file
+- Adds that to some boilerplate
+- Puts into `temp.v` file
+- Runs `temp.v`
+- Deletes `temp.v`
